@@ -15,18 +15,26 @@ class SearchResults extends Component {
       </ul>)
   }
 }
+
 class SearchExample extends Component {
   constructor(props) {
      super(props);
      this.state = {
        results: []
      }
+     this.previousRequest = null;
    }
 
   handleKeyUp() {
-    spotifyWebApi.searchTracks(this.refs.query.value, {limit: 10}).then((response) =>
-      this.setState({results: response.tracks.items})
-    )
+    if (this.previousRequest !== null) {
+      this.previousRequest.abort();
+    }
+    this.previousRequest = spotifyWebApi.searchTracks(this.refs.query.value, {limit: 10});
+    this.previousRequest.then((response) => {
+        this.setState({results: response.tracks.items})
+        this.previousRequest = null
+      }
+    ).catch(() => {})
   }
 
   render() {
