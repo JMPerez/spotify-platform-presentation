@@ -82,7 +82,7 @@ class UserLoginExample extends Component {
       return (
         <div>
           Log in with your Spotify account and this demo will display information about you fetched using the Spotify Web API
-          <button onClick={this.handleClick.bind(this)}>Login</button>
+          <button style={{backgroundColor:'green',border:0,display:'block',margin:'1em 0'}} onClick={this.handleClick.bind(this)}>Login</button>
         </div>
       )
     }
